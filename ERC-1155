@@ -1,0 +1,45 @@
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.23;
+
+import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract SBToken is ERC1155, Ownable {
+    string public name = "SB Token";
+    string public symbol = "SBT";
+    uint256 public totalSupply;
+
+    // Mapping de matadata del token
+    mapping(uint256 => string) private _tokenURIs;
+
+    constructor() ERC1155("") {
+        // Inicializa con una URL base vacía; puedes cambiarla a medida que lo necesites.
+    }
+
+    // Función para acuñar nuevos tokens
+    function mint(address to, uint256 id, uint256 amount, bytes memory data) external onlyOwner {
+        _mint(to, id, amount, data);
+        totalSupply += amount;
+    }
+
+    // Función para quemar tokens
+    function burn(address from, uint256 id, uint256 amount) external onlyOwner {
+        _burn(from, id, amount);
+        totalSupply -= amount;
+    }
+
+    // Función para establecer la URI de un token específico
+    function setTokenURI(uint256 id, string memory uri) external onlyOwner {
+        _tokenURIs[id] = uri;
+    }
+
+    // Función para obtener la URI de un token específico
+    function uri(uint256 id) public view virtual override returns (string memory) {
+        return _tokenURIs[id];
+    }
+
+    // Override para permitir compatibilidad con OpenZeppelin ERC1155
+    function _setURI(string memory newuri) internal virtual override {
+        super._setURI(newuri);
+    }
+}
