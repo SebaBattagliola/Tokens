@@ -11,7 +11,7 @@ contract SBToken is ERC1155, Ownable {
     string public symbol = "SBT";
     uint256 public totalSupply;
 
-    // Mapping de matadata del token
+    // Mapping de matadata del token.
     mapping(uint256 => string) private _tokenURIs;
 
     constructor() ERC1155("") {
