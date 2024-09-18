@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-// Contract to create ERC-20 tokens that can generate automated tokens in the future, useful for ICO launch plans.
+// Contract to create ERC-20 tokens that can generate automated tokens in the future, useful for ICO launch plans - Crear tokens con ruta de generaciòn y quemado.
 interface IERC20 {
     function totalSupply() external view returns (uint256);
     function balanceOf(address account) external view returns (uint256);
